@@ -30,7 +30,9 @@ def parse(input_filename, borehole_id=None):
     firstline_list = lines[0][:-1].split()
     main = [{"investigation_point": firstline_list[5],
              'date': pd.to_datetime(firstline_list[2], format='%d.%m.%Y'),
-             "method_code": "core_sampling"}]
+             "method_code": "core_sampling",
+             "investigation_point": borehole_id
+    }]
     for l in lines[2:-1]:
         values = l[:-1].split()
         data_str = values[:12]
