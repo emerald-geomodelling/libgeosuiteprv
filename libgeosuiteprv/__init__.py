@@ -28,8 +28,9 @@ def parse(input_filename, borehole_id=None):
         lines = codecs.getreader('utf8')(input_filename, errors='ignore').readlines()
 
     firstline_list = lines[0][:-1].split()
+
     main = [{"investigation_point": firstline_list[5],
-             'date': pd.to_datetime(firstline_list[2], format='%d.%m.%Y'),
+             'date': pd.to_datetime(firstline_list[2], format='%d.%m.%Y') if firstline_list[2] != "-" else np.nan,
              "method_code": "core_sampling",
              "investigation_point": borehole_id
     }]
