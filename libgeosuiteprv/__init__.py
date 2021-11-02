@@ -38,7 +38,7 @@ def parse(input_filename, borehole_id=None):
         values = l[:-1].split()
         if '?' in values:
             index = values.index('?')
-            values[index] = 0.0
+            values[index] = 0
         data_str = values[:12]
         data_num = np.array(data_str, dtype=np.float)
         comments = ' '.join(values[12:])
