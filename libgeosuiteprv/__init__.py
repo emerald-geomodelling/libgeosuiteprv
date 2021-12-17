@@ -17,7 +17,8 @@ logger = logging.getLogger(__name__)
 
 def parse(input_filename, borehole_id=None):
     if borehole_id is None:
-        borehole_id = input_filename.split("/")[-1].split(".", 1)[0]
+        if isinstance(input_filename, str):
+            borehole_id = input_filename.split("/")[-1].split(".", 1)[0]
 
     df = pd.DataFrame()
     comment_list = []

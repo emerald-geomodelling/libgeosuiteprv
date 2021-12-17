@@ -5,7 +5,7 @@ import os
 
 setuptools.setup(
     name='libgeosuiteprv',
-    version='0.0.4',
+    version='0.0.5',
     description='Parser for the GeoSuite<tm> PRV export format',
     long_description="""Parser for the GeoSuite<tm> PRV export format""",
     long_description_content_type="text/markdown",
@@ -17,4 +17,7 @@ setuptools.setup(
         "numpy",
         "pandas",
     ],
+    entry_points = {
+        'libsgfdata.parsers': ['prv=libgeosuiteprv:parse'],
+    }
 )
