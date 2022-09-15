@@ -29,8 +29,7 @@ def parse(input_filename, borehole_id=None):
 
     firstline_list = lines[0][:-1].split()
 
-    main = [{"investigation_point": firstline_list[5],
-             'date': pd.to_datetime(firstline_list[2], format='%d.%m.%Y') if firstline_list[2] != "-" else np.nan,
+    main = [{'date': pd.to_datetime(firstline_list[2], format='%d.%m.%Y') if firstline_list[2] != "-" else np.nan,
              "method_code": "core_sampling",
              "investigation_point": borehole_id
     }]
@@ -39,6 +38,8 @@ def parse(input_filename, borehole_id=None):
         if '?' in values:
             index = values.index('?')
             values[index] = 0
+        if l[0]=='*':
+            break
         data_str = values[:12]
         data_num = np.array(data_str, dtype=np.float)
         comments = ' '.join(values[12:])
