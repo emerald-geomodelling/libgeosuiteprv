@@ -33,6 +33,7 @@ def parse(input_filename, borehole_id=None):
              "method_code": "core_sampling",
              "investigation_point": borehole_id
     }]
+
     for l in lines[2:-1]:
         values = l[:-1].split()
         if '?' in values:
@@ -40,13 +41,15 @@ def parse(input_filename, borehole_id=None):
             values[index] = 0
         if l[0]=='*':
             break
-        data_str = values[:12]
+        tube = values[0]
+        data_str = values[1:12]
         data_num = np.array(data_str, dtype=np.float)
         comments = ' '.join(values[12:])
-        df = df.append(pd.Series(data_num), ignore_index=True)
+        data_series = pd.Series([tube]+list(data_num))
+        df = df.append(pd.Series(data_series), ignore_index=True)
         comment_list.append(comments)
     df.loc[:,'comments'] = comment_list
-    df = df.astype({0:'int32', 1:'int32'})
+    df = df.astype({ 1:'int32'})
 
     df = df.replace(0,np.nan).rename(columns={
         0:'tube',
