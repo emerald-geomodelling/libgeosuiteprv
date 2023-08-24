@@ -5,7 +5,7 @@ import os
 
 setuptools.setup(
     name='libgeosuiteprv',
-    version='0.0.5',
+    version='0.0.6',
     description='Parser for the GeoSuite<tm> PRV export format',
     long_description="""Parser for the GeoSuite<tm> PRV export format""",
     long_description_content_type="text/markdown",
