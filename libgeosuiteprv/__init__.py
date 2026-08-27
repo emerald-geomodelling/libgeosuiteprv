@@ -43,10 +43,13 @@ def parse(input_filename, borehole_id=None):
             break
         tube = values[0]
         data_str = values[1:12]
-        data_num = np.array(data_str, dtype=np.float)
+        data_num = np.array(data_str, dtype=float)
         comments = ' '.join(values[12:])
         data_series = pd.Series([tube]+list(data_num))
-        df = df.append(pd.Series(data_series), ignore_index=True)
+        # DataFrame.append was removed in pandas 2.0; concat of the transposed row is the
+        # replacement. ignore_index=True was already set, so the 0..n-1 row index and the
+        # 0..11 integer column labels the rename below relies on are unchanged.
+        df = pd.concat([df, data_series.to_frame().T], ignore_index=True)
         comment_list.append(comments)
     df.loc[:,'comments'] = comment_list
     df = df.astype({ 1:'int32'})
